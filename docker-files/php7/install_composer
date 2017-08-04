@@ -1,0 +1,4 @@
+#!/bin/bash
+php -r 'echo file_get_contents("https://raw.githubusercontent.com/composer/getcomposer.org/1b137f8bf6db3e79a38a5bc45324414a6b1f9df2/web/installer"); ' > /tmp/composer_installer
+php /tmp/composer_installer
+php composer.phar install

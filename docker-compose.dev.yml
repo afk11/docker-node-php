@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+  mysql:
+    hostname: mysql
+    environment:
+      MYSQL_DATABASE: node
+      MYSQL_ROOT_PASSWORD: iedeiv7Jee5Yom8Ti9Ye8AiTh1eePh0IeK4xieC4Ga3iegiesauj1deovaebahH6geishai0xeeHufe3heiGee5tiepah2phidaiNohp3aingi8eechoumeipi4aemei
+      MYSQL_PASSWORD: iedeiv7Jee5Yom8Ti9Ye8AiTh1eePh0IeK4xieC4Ga3iegiesauj1deovaebahH6geishai0xeeHufe3heiGee5tiepah2phidaiNohp3aingi8eechoumeipi4aemei
+    ports:
+      - ${DOCKER_EXPOSE_MYSQL_PORT}:3306
+    extends:
+      file:  docker-compose.tmpl.yml
+      service: mysql
+
+  php7:
+    hostname: php7
+    extends:
+      file:  docker-compose.tmpl.yml
+      service: php7
+    links:
+      - mysql:mysql

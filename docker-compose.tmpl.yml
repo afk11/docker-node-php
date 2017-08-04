@@ -1,0 +1,31 @@
+version: '2'
+
+services:
+  cache:
+    build: docker-files/redis
+    ports:
+      - 6379
+
+  mysql:
+    image: mysql
+    hostname: mysql
+    ports:
+        - 3306
+    volumes:
+        - ${PWD}/logs/mysql:/var/log:rw
+        - ${PWD}/data/db/mysql:/var/lib/mysql:rw
+
+  php7:
+    build: docker-files/php7
+    ports:
+      - 9000
+    volumes:
+      - ${PWD}/logs/php7:/var/log:rw
+      - ${PWD}/app:/var/www/html
+      - ${PWD}/data/php7:/work:rw
+      - ${PWD}/data/php7_root:/root/.phpnode:rw
+
+  rabbitmq:
+    image: rabbitmq
+    ports:
+     - 5672
