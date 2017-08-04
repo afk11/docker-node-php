@@ -2,7 +2,6 @@
 # Base image
 ################################################################################
 
-
 FROM php:7.1-fpm
 
 ################################################################################
@@ -38,7 +37,8 @@ RUN docker-php-ext-install pdo pdo_mysql gmp gd bcmath intl
 
 # Add configuration files
 
-RUN apt-get install autotools-dev automake autoconf libtool build-essential
+RUN apt-get install -my \
+    autotools-dev automake autoconf libtool build-essential
 
 RUN git clone https://github.com/bitcoin-core/secp256k1.git && \
     cd secp256k1 && ./autogen.sh && ./configure --enable-experimental --enable-module-ecdh --enable-module-recovery && \
