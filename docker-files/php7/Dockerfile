@@ -38,7 +38,7 @@ RUN docker-php-ext-install pdo pdo_mysql gmp gd bcmath intl
 # Add configuration files
 
 RUN apt-get install -my \
-    autotools-dev automake autoconf libtool build-essential
+    autotools-dev automake autoconf libtool build-essential libleveldb-dev
 
 RUN git clone https://github.com/bitcoin-core/secp256k1.git && \
     cd secp256k1 && ./autogen.sh && ./configure --enable-experimental --enable-module-ecdh --enable-module-recovery && \
@@ -62,6 +62,9 @@ RUN cd /src && ls && tar xvf bitcoin-0.14.2-x86_64-linux-gnu.tar.gz && cd bitcoi
     phpize && ./configure --with-bitcoinconsensus && \
     make && make install && echo "extension=bitcoinconsensus.so" > /usr/local/etc/php/conf.d/bitcoinconsensus.ini;
 
+RUN cd /src && git clone -b PHP7 https://github.com/reeze/php-leveldb.git
+RUN cd /src/php-leveldb && phpize && ./configure --with-leveldb && make && make install
+RUN echo "extension=leveldb.so" > /usr/local/etc/php/conf.d/bitcoinconsensus.ini;
 
 # this one is only needed for tests:
 RUN apt-get install -my \
